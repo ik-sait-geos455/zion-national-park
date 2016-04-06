@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Zion Park</title>
+
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        height: 100%;
+      }
+
+      #legend, #legend-title {
+        background: white;
+        padding: 10px;
+      }
+
+      #legend, #legend-title {
+        font-family: Arial, sans-serif;
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+        border: 3px solid #000;
+      }
+
+      #legend, #legend-title h3 {
+        margin-top: 0;
+      }
+
+      #legend img {
+        vertical-align: middle;
+        max-width: 6em;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div id="map"></div>
+
+    <!-- Add top right description, should be added to map in JS later in code -->
+    <div style="z-index: 0; position: absolute; top: 127px; right: 0px;" id="legend-title">
+      <h2>Research Areas within 200 m of Roads</h2>
+      <h3>Zion National Park</h3>
+    </div>
+
+    <!-- Add bottom left legend, should be added to map in JS later in code -->
+    <div style="z-index: 0; position: absolute; bottom: 127px; left: 0px;" id="legend">
+      <h3>Legend</h3>
+      <div>
+        <img src="Roads.png"> Roads
+      </div>
+      <div>
+        <img src="Streams.png"> Streams
+      </div>
+      <div>
+        <img src="Research_areas_within_200m.png"> Research_areas_within_200m
+      </div>
+      <div>
+        <img src="Research_Areas.png"> Research_Areas
+      </div>
+    </div>
+
+    <script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 11,
+          center: {lat: 37.286, lng: -113.007}
+        });
+
+        // Add right top legend
+        map.controls[google.maps.ControlPosition.RIGHT_TOP].push(
+          document.getElementById('legend-title')
+        );
+
+        // Add left bottom
+        map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
+          document.getElementById('legend')
+        );
+
+        // Add all layers (links are direct url to files inside github repo)
+
+        var roadsLayer = new google.maps.KmlLayer({
+          url: 'https://github.com/t4ec/zionpark/raw/master/ParkBoundary.kmz',
+          map: map
+        });
+
+        var researchAreasLayer = new google.maps.KmlLayer({
+          url: 'https://github.com/t4ec/zionpark/raw/master/ResearchAreas.kmz',
+          map: map
+        });
+
+        var roadsLayer = new google.maps.KmlLayer({
+          url: 'https://github.com/t4ec/zionpark/raw/master/Roads.kmz',
+          map: map
+        });
+
+        var streamsLayer = new google.maps.KmlLayer({
+          url: 'https://github.com/t4ec/zionpark/raw/master/Streams.kmz',
+          map: map
+        });
+
+        var research200Layer = new google.maps.KmlLayer({
+          url: 'https://github.com/t4ec/zionpark/raw/master/Research200m.kmz',
+          map: map
+        });
+
+    }
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXXSnwnrL6q7DdeoCN3Dmlz1AwAAzY4oE&callback=initMap">
+    </script>
+  </body>
+</html>
